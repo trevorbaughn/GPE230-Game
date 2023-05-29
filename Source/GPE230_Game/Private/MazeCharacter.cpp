@@ -50,4 +50,3 @@ void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
 }
-

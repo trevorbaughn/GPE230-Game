@@ -27,6 +27,8 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 private:
+	FVector direction;
+
 	UPROPERTY(EditAnywhere)
 		float moveSpeed;
 	UPROPERTY(EditAnywhere)
@@ -36,5 +38,6 @@ private:
 	void MoveFB(float value);
 	void MoveLR(float value);
 	void Rotate(float value);
+	void Move();
 
 };
