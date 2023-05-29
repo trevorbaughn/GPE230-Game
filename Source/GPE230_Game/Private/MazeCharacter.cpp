@@ -33,6 +33,8 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveFB"), this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis(TEXT("MoveLR"), this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
+	PlayerInputComponent->BindAction(TEXT("Run"), IE_Pressed, this, &AMazeCharacter::SetRunSpeed);
+	PlayerInputComponent->BindAction(TEXT("Run"), IE_Released, this, &AMazeCharacter::SetWalkSpeed);
 
 }
 
@@ -49,4 +51,14 @@ void AMazeCharacter::MoveLR(float value)
 void AMazeCharacter::Rotate(float value)
 {
 	AddControllerYawInput(value * rotationSpeed);
+}
+
+void AMazeCharacter::SetRunSpeed()
+{
+	moveSpeed = runSpeed;
+}
+
+void AMazeCharacter::SetWalkSpeed()
+{
+	moveSpeed = walkSpeed;
 }
