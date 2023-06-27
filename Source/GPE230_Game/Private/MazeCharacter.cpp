@@ -33,8 +33,8 @@ void AMazeCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 	PlayerInputComponent->BindAxis(TEXT("MoveFB"), this, &AMazeCharacter::MoveFB);
 	PlayerInputComponent->BindAxis(TEXT("MoveLR"), this, &AMazeCharacter::MoveLR);
 	PlayerInputComponent->BindAxis(TEXT("Rotate"), this, &AMazeCharacter::Rotate);
-	PlayerInputComponent->BindAction(TEXT("Run"), IE_Pressed, this, &AMazeCharacter::SetRunSpeed);
-	PlayerInputComponent->BindAction(TEXT("Run"), IE_Released, this, &AMazeCharacter::SetWalkSpeed);
+	//PlayerInputComponent->BindAction(TEXT("Run"), IE_Pressed, this, &AMazeCharacter::SetRunSpeed);
+	//PlayerInputComponent->BindAction(TEXT("Run"), IE_Released, this, &AMazeCharacter::SetWalkSpeed);
 
 }
 
@@ -60,5 +60,13 @@ void AMazeCharacter::SetRunSpeed()
 
 void AMazeCharacter::SetWalkSpeed()
 {
+	
 	moveSpeed = walkSpeed;
+}
+
+void AMazeCharacter::Die()
+{
+	moveSpeed = 0;
+	rotationSpeed = 0;
+	GetMesh()->PlayAnimation(_deathAnim, false);
 }

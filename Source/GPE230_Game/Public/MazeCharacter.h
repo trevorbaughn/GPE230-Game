@@ -4,12 +4,28 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Killable.h"
 #include "MazeCharacter.generated.h"
 
 UCLASS()
-class GPE230_GAME_API AMazeCharacter : public ACharacter
+class GPE230_GAME_API AMazeCharacter : public ACharacter, public IKillable
 {
 	GENERATED_BODY()
+
+private:
+	UPROPERTY(EditAnywhere)
+		float runSpeed;
+	UPROPERTY(EditAnywhere)
+		float walkSpeed;
+
+	UPROPERTY(EditAnywhere)
+		float moveSpeed = walkSpeed;
+	UPROPERTY(EditAnywhere)
+		float rotationSpeed;
+	UPROPERTY(EditAnywhere)
+		UAnimSequence* _deathAnim;
+	
+	
 
 public:
 	// Sets default values for this character's properties
@@ -26,19 +42,7 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-private:
 
-	
-
-	UPROPERTY(EditAnywhere)
-		float runSpeed;
-	UPROPERTY(EditAnywhere)
-		float walkSpeed;
-
-	UPROPERTY(EditAnywhere)
-		float moveSpeed = walkSpeed;
-	UPROPERTY(EditAnywhere)
-		float rotationSpeed;
 
 private:
 	void MoveFB(float value);
@@ -46,5 +50,6 @@ private:
 	void Rotate(float value);
 	void SetRunSpeed();
 	void SetWalkSpeed();
+	void Die() override;
 
 };
