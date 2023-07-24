@@ -19,7 +19,8 @@ protected:
 
 public:
 	//current actor health
-	float _currentHealth;
+	UPROPERTY(EditAnywhere)
+		float _currentHealth;
 
 private:
 	UPROPERTY(EditAnywhere)
@@ -28,8 +29,8 @@ private:
 
 public:	
 	// Sets default values for this component's properties
-	UHealthComponent();
 	virtual float TakeDamage(float DamageAmount);
+	virtual float HealDamage(float HealAmount);
 
 protected:
 	// Called when the game starts
@@ -37,10 +38,6 @@ protected:
 	//mimic the TakeDamage function on ACharacter class.
 	
 	virtual void Die();
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
 };

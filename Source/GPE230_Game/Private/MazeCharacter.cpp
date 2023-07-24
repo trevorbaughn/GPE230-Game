@@ -1,7 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+
 #include "MazeCharacter.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 // Sets default values
 AMazeCharacter::AMazeCharacter()
@@ -69,4 +72,22 @@ void AMazeCharacter::Die()
 	moveSpeed = 0;
 	rotationSpeed = 0;
 	GetMesh()->PlayAnimation(_deathAnim, false);
+}
+
+void AMazeCharacter::ActivateStunParticleSystem()
+{
+	if (_stunSystem)
+	{
+		USceneComponent* AttachComp = GetDefaultAttachComponent();
+
+		//attaches location of particle spawn to MazeCharacter pos
+		UNiagaraComponent* NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(_stunSystem, AttachComp, NAME_None,
+			FVector(0), FRotator(0), EAttachLocation::Type::KeepRelativeOffset, true);
+
+		NiagaraComp->Activate();
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("Player attempted to use the stun ability, but no template particle system was found."));
+	}
 }

@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Killable.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
+
 #include "MazeCharacter.generated.h"
 
 UCLASS()
@@ -24,6 +27,8 @@ private:
 		float rotationSpeed;
 	UPROPERTY(EditAnywhere)
 		UAnimSequence* _deathAnim;
+	UPROPERTY(EditAnywhere)
+		UNiagaraSystem* _stunSystem;
 	
 	
 
@@ -51,5 +56,7 @@ private:
 	void SetRunSpeed();
 	void SetWalkSpeed();
 	void Die() override;
+	UFUNCTION(BlueprintCallable)
+		void ActivateStunParticleSystem();
 
 };
