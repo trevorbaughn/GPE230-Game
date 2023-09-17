@@ -19,8 +19,11 @@ protected:
 
 public:
 	//current actor health
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		float _currentHealth;
+
+	UFUNCTION(BlueprintCallable)
+		float GetMaxHealth();
 
 private:
 	UPROPERTY(EditAnywhere)

@@ -14,6 +14,11 @@ void UHealthComponent::BeginPlay()
 	
 }
 
+float UHealthComponent::GetMaxHealth()
+{
+	return maxHealth;
+}
+
 /// <summary>
 /// Take Damage.
 /// </summary>

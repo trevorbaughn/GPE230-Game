@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Killable.h"
+#include "Blueprint/UserWidget.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 
@@ -16,6 +17,8 @@ class GPE230_GAME_API AMazeCharacter : public ACharacter, public IKillable
 	GENERATED_BODY()
 
 private:
+	FTimerHandle openGameOverTimerHandle;
+
 	UPROPERTY(EditAnywhere)
 		float runSpeed;
 	UPROPERTY(EditAnywhere)
@@ -29,14 +32,36 @@ private:
 		UAnimSequence* _deathAnim;
 	UPROPERTY(EditAnywhere)
 		UNiagaraSystem* _stunSystem;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _gameOverScreenTemplate;
+	UUserWidget* _gameOverScreenInstance;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _victoryScreenTemplate;
+	UUserWidget* _victoryScreenInstance;
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> _HUDTemplate;
+	UUserWidget* _HUDInstance;
 	
-	
+protected:
+	/// <summary>
+	/// Controller that manages this character
+	/// </summary>
+	APlayerController* _controller;
 
 public:
 	// Sets default values for this character's properties
 	AMazeCharacter();
+	virtual void OpenVictoryScreen();
 
 protected:
+	UFUNCTION(BlueprintCallable)
+		virtual void OpenGameOverScreen();
+
+	UFUNCTION(BlueprintCallable)
+		virtual void PauseGameplay(bool isPaused);
+	UFUNCTION(BlueprintCallable)
+		virtual void ShowMouseCursor(bool isShown);
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -56,6 +81,7 @@ private:
 	void SetRunSpeed();
 	void SetWalkSpeed();
 	void Die() override;
+	virtual void OpenHUD();
 	UFUNCTION(BlueprintCallable)
 		void ActivateStunParticleSystem();
 

@@ -13,7 +13,7 @@ class GPE230_GAME_API UScoreableComponent : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int score = 0;
 
 protected:

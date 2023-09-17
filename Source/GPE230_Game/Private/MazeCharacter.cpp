@@ -5,6 +5,7 @@
 #include "MazeCharacter.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
+#include <Animation/AnimData/AnimDataModel.h>
 
 // Sets default values
 AMazeCharacter::AMazeCharacter()
@@ -14,11 +15,44 @@ AMazeCharacter::AMazeCharacter()
 
 }
 
+
+
+void AMazeCharacter::OpenVictoryScreen()
+{
+	_victoryScreenInstance->AddToViewport();
+	PauseGameplay(true);
+	ShowMouseCursor(true);
+}
+
+void AMazeCharacter::OpenGameOverScreen()
+{
+	_gameOverScreenInstance->AddToViewport();
+	PauseGameplay(true);
+	ShowMouseCursor(true);
+}
+
+void AMazeCharacter::PauseGameplay(bool isPaused)
+{
+	_controller->SetPause(isPaused);
+}
+
+void AMazeCharacter::ShowMouseCursor(bool isShown)
+{
+	_controller->bShowMouseCursor = isShown;
+}
+
 // Called when the game starts or when spawned
 void AMazeCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	_controller = Cast<APlayerController>(GetController());
+
+	_gameOverScreenInstance = CreateWidget(GetWorld(), _gameOverScreenTemplate);
+	_victoryScreenInstance = CreateWidget(GetWorld(), _victoryScreenTemplate);
+	_HUDInstance = CreateWidget(GetWorld(), _HUDTemplate);
+
+	OpenHUD();
 }
 
 // Called every frame
@@ -71,7 +105,16 @@ void AMazeCharacter::Die()
 {
 	moveSpeed = 0;
 	rotationSpeed = 0;
+	
 	GetMesh()->PlayAnimation(_deathAnim, false);
+
+	//Runs OpenGameOverScreen after the length of _deathAnim
+	GetWorldTimerManager().SetTimer(openGameOverTimerHandle, this, &AMazeCharacter::OpenGameOverScreen, _deathAnim->GetPlayLength(), false);
+}
+
+void AMazeCharacter::OpenHUD()
+{
+	_HUDInstance->AddToViewport();
 }
 
 void AMazeCharacter::ActivateStunParticleSystem()
