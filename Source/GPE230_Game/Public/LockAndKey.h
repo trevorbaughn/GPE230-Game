@@ -19,7 +19,8 @@ class GPE230_GAME_API ALockAndKey : public ATriggerBox
 public:
 	ALockAndKey();
 
-	USoundWave* _openDoorSound;
+	UPROPERTY(EditAnywhere)
+		USoundWave* _openDoorSound;
 
 	UFUNCTION()
 		void CheckActorType(class AActor* OverlappedActor, class AActor* OtherActor);

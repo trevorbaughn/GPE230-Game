@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 #include "HealthComponent.generated.h"
 
 
@@ -21,6 +23,9 @@ public:
 	//current actor health
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		float _currentHealth;
+
+	UPROPERTY(EditAnywhere)
+		USoundWave* _hitSound;
 
 	UFUNCTION(BlueprintCallable)
 		float GetMaxHealth();

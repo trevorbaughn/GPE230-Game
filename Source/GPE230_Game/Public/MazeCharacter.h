@@ -19,6 +19,8 @@ class GPE230_GAME_API AMazeCharacter : public ACharacter, public IKillable
 private:
 	FTimerHandle openGameOverTimerHandle;
 
+	
+
 	UPROPERTY(EditAnywhere)
 		float runSpeed;
 	UPROPERTY(EditAnywhere)

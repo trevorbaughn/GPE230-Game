@@ -29,6 +29,8 @@ float UHealthComponent::GetMaxHealth()
 /// <returns></returns>
 float UHealthComponent::TakeDamage(float DamageAmount)
 {
+	UGameplayStatics::PlaySound2D(this, _hitSound, 1.0, 1.0, 0.0);
+
 	if (!_isDead)
 	{
 		//Subtract incoming damage

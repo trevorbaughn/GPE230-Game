@@ -17,6 +17,9 @@ class GPE230_GAME_API APowerup : public ATriggerBox
 public:
 	APowerup();
 
+	UPROPERTY(EditAnywhere)
+		USoundWave* _pickupSound;
+
 	UFUNCTION()
 		void CheckActorType(class AActor* OverlappedActor, class AActor* OtherActor);
 
