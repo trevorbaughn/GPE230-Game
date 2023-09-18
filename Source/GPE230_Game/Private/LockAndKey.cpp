@@ -1,6 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "LockAndKey.h"
 #include "MazeCharacter.h"
+#include "Sound/SoundWave.h"
+#include "Kismet/GameplayStatics.h"
 
 
 ALockAndKey::ALockAndKey()
@@ -28,5 +30,8 @@ void ALockAndKey::CheckActorType(AActor* OverlappedActor, AActor* OtherActor)
 /// </summary>
 void ALockAndKey::OpenTheDoor()
 {
+	
+	UGameplayStatics::PlaySound2D(this, _openDoorSound, 1.0, 1.0, 0.0);
+
 	this->Destroy();
 }
